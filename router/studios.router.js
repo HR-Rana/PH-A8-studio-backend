@@ -1,0 +1,21 @@
+import express from "express";
+import { createStudiosController,
+     deleteStudiosController, 
+     getAllStudiosController, 
+     updateStudiosController } from "../controller/studios.controller.js";
+
+
+const router = express.Router();
+
+
+router.get("/getStudios", getAllStudiosController)
+router.post("/createStudios", createStudiosController)
+router.put("/updateStudios", updateStudiosController)
+router.delete("/deleteStudios", deleteStudiosController)
+
+
+
+
+
+
+export default router;
