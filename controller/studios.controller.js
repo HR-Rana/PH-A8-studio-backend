@@ -11,9 +11,25 @@ export const getAllStudiosController = async (req, res) => {
 
 
 
-export const createStudiosController = (req, res) => {
+export const createStudiosController = async (req, res) => {
   const studioData = req.body;
   console.log(studioData);
+
+  try {
+    const result = await studiosCollection.insertOne(studioData);
+
+    res.status(201).json({
+      success: true,
+      message: "Studio created successfully",
+      data: { _id: result.insertedId, ...studioData },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to create studio",
+      error: error.message,
+    });
+  }
 };
 
 

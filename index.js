@@ -1,9 +1,11 @@
 import express from "express";
 import { MongoClient } from 'mongodb';
 import cors from "cors"
+import path from "path";
 import "dotenv/config";
 import userRouter from './router/user.router.js'
 import studiosRouter from './router/studios.router.js'
+import { uploadsDir } from './controller/upload.controller.js'
 
 const app = express();
 const PORT = 5000
@@ -14,6 +16,7 @@ const PORT = 5000
 // middleware
 app.use(cors())
 app.use(express.json())
+app.use("/uploads", express.static(uploadsDir))
 
 
 
