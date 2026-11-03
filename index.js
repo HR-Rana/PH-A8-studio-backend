@@ -17,22 +17,24 @@ app.use(express.json())
 
 
 
-const client = new MongoClient(`mongodb://ariyanmahmud02019_db_user:${process.env.DB_PASSWORD}@ac-trsoayj-shard-00-00.sizzebj.mongodb.net:27017,ac-trsoayj-shard-00-01.sizzebj.mongodb.net:27017,ac-trsoayj-shard-00-02.sizzebj.mongodb.net:27017/?ssl=true&replicaSet=atlas-cf30ok-shard-0&authSource=admin`);
+// const client = new MongoClient(`mongodb://ariyanmahmud02019_db_user:${process.env.DB_PASSWORD}@ac-trsoayj-shard-00-00.sizzebj.mongodb.net:27017,ac-trsoayj-shard-00-01.sizzebj.mongodb.net:27017,ac-trsoayj-shard-00-02.sizzebj.mongodb.net:27017/?ssl=true&replicaSet=atlas-cf30ok-shard-0&authSource=admin`);
 
 
-export async function connectToMongoDB() {
-    try {
-        await client.connect();
-        console.log("You successfully connected to MongoDB!");
-        return client;
-    } catch (err) {
-        console.dir(err);
-    }
+// export async function connectToMongoDB() {
+//     try {
+//         await client.connect();
+//         console.log("You successfully connected to MongoDB!");
+//         return client;
+//     } catch (err) {
+//         console.dir(err);
+//     }
 
-}
+// }
 
 
-connectToMongoDB().catch(console.dir);
+// const database = await connectToMongoDB().catch(console.dir);
+// const db = database.db("studioDB");
+// export const studiosCollection = db.collection("studios");
 
 
 app.use("/api", studiosRouter);

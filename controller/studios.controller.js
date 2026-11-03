@@ -1,30 +1,21 @@
+import { studiosCollection } from "../databaseCofig/databaseConfig.js";
 
 
-export const getAllStudiosController = (req, res) => {
-  const studioData = req.body;
 
-  console.log(studioData);
+export const getAllStudiosController = async (req, res) => {
+  const data = await studiosCollection.find().toArray()
+  res.send(data)
 
-  res.status(201).json({
-    success: true,
-    message: "Studio created successfully",
-    data: studioData,
-  });
+  console.log(data);
 }
 
 
 
 export const createStudiosController = (req, res) => {
   const studioData = req.body;
-
   console.log(studioData);
-
-  res.status(201).json({
-    success: true,
-    message: "Studio created successfully",
-    data: studioData,
-  });
 };
+
 
 
 
