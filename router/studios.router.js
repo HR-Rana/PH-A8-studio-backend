@@ -13,7 +13,7 @@ router.get("/getStudios", getAllStudiosController)
 router.post("/createStudios", createStudiosController)
 router.post("/uploadImage", uploadMiddleware, uploadImageController)
 router.put("/updateStudios", updateStudiosController)
-router.delete("/deleteStudios", deleteStudiosController)
+router.delete("/deleteStudios/:id", deleteStudiosController)
 
 
 

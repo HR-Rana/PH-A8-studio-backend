@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { studiosCollection } from "../databaseCofig/databaseConfig.js";
 
 
@@ -50,15 +51,19 @@ export const updateStudiosController = (req, res) => {
 
 
 
-export const deleteStudiosController = (req, res) => {
-  const studioData = req.body;
+export const deleteStudiosController = async (req, res) => {
+  const id = req.params;
 
-  console.log(studioData);
+  const response = await studiosCollection.deleteOne({
+    _id:new ObjectId(id)
+  })
+
+  console.log(response);
 
   res.status(200).json({
     success: true,
     message: "Studio deleted successfully",
-    data: studioData,
+    data: response,
   });
 };
 
