@@ -6,6 +6,10 @@ import "dotenv/config";
 import userRouter from './router/user.router.js'
 import studiosRouter from './router/studios.router.js'
 import { uploadsDir } from './controller/upload.controller.js'
+import bookingRouter from './router/booking.router.js'
+
+
+
 
 const app = express();
 const PORT = 5000
@@ -42,7 +46,7 @@ app.use("/uploads", express.static(uploadsDir))
 
 app.use("/api", studiosRouter);
 app.use("/api", userRouter);
-
+app.use("/api", bookingRouter)
 
 
 

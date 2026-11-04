@@ -19,4 +19,4 @@ export async function connectToMongoDB() {
 const database = await connectToMongoDB();
 const db = database.db("Studio-Space");
 export const studiosCollection = db.collection("studios-list");
-export const bookingCollection = db.collection("booking-list");
+export const BookingCollection = db.collection("booking-list");
