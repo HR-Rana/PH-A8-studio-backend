@@ -7,7 +7,7 @@ export const getAllStudiosController = async (req, res) => {
   const data = await studiosCollection.find().toArray()
   res.send(data)
 
-  console.log(data);
+
 }
 
 
@@ -72,62 +72,62 @@ export const createStudiosController = async (req, res) => {
 
 
 
-export const updateStudiosController = async(req, res) => {
- try {
-  const { id } = req.params;
+export const updateStudiosController = async (req, res) => {
+  try {
+    const { id } = req.params;
 
-  if (!ObjectId.isValid(id)) {
-    return res.status(400).json({
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid studio id",
+      });
+    }
+
+    const updateData = { ...req.body };
+
+    if (req.body.tags) {
+      try {
+        updateData.tags = JSON.parse(req.body.tags);
+      } catch (error) {
+        delete updateData.tags;
+      }
+    }
+
+    if (updateData.price !== undefined) {
+      updateData.price = Number(updateData.price);
+    }
+
+    if (updateData.rating !== undefined && updateData.rating !== "") {
+      updateData.rating = Number(updateData.rating);
+    }
+
+    delete updateData._id;
+
+    const imageUrl = req.file?.path;
+    if (imageUrl) {
+      updateData.image = imageUrl;
+    }
+
+    const response = await studiosCollection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: updateData }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Studio updated successfully",
+      data: {
+        modifiedCount: response.modifiedCount,
+        imageUrl,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
       success: false,
-      message: "Invalid studio id",
+      message: "Failed to update studio",
+      error: error.message,
     });
   }
-
-  const updateData = { ...req.body };
-
-  if (req.body.tags) {
-    try {
-      updateData.tags = JSON.parse(req.body.tags);
-    } catch (error) {
-      delete updateData.tags;
-    }
-  }
-
-  if (updateData.price !== undefined) {
-    updateData.price = Number(updateData.price);
-  }
-
-  if (updateData.rating !== undefined && updateData.rating !== "") {
-    updateData.rating = Number(updateData.rating);
-  }
-
-  delete updateData._id;
-
-  const imageUrl = req.file?.path;
-  if (imageUrl) {
-    updateData.image = imageUrl;
-  }
-
-  const response = await studiosCollection.updateOne(
-    { _id: new ObjectId(id) },
-    { $set: updateData }
-  );
-
-  res.status(200).json({
-    success: true,
-    message: "Studio updated successfully",
-    data: {
-      modifiedCount: response.modifiedCount,
-      imageUrl,
-    },
-  });
- } catch (error) {
-  res.status(500).json({
-    success: false,
-    message: "Failed to update studio",
-    error: error.message,
-  });
- }
 };
 
 
@@ -136,7 +136,7 @@ export const deleteStudiosController = async (req, res) => {
   const { id } = req.params;
 
   const response = await studiosCollection.deleteOne({
-    _id:new ObjectId(id)
+    _id: new ObjectId(id)
   })
 
   console.log(response);
