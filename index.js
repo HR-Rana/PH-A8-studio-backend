@@ -5,7 +5,7 @@ import path from "path";
 import "dotenv/config";
 import userRouter from './router/user.router.js'
 import studiosRouter from './router/studios.router.js'
-import { uploadsDir } from './controller/upload.controller.js'
+// import { uploadsDir } from './controller/upload.controller.js'
 import bookingRouter from './router/booking.router.js'
 
 
@@ -18,9 +18,9 @@ const PORT = 5000
 
 
 // middleware
-app.use(cors())
+app.use(cors({}))
 app.use(express.json())
-app.use("/uploads", express.static(uploadsDir))
+// app.use("/uploads", express.static(uploadsDir))
 
 
 
